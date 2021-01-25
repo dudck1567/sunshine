@@ -4,6 +4,15 @@
 body{ font-family: 'Nanum Gothic', sans-serif;}
 .row{max-width: 1000px; margin: 0 auto;}
 
+#header { 
+    position: fixed;
+    width:100%;
+    top:0;
+    left:0;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    z-index: 999;
+}
 #header > div{
     max-width: 1200px;
     margin: 20px auto 0;
