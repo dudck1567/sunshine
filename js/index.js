@@ -1,4 +1,4 @@
-$(".slide_group").slick({
+$(".article1 .slide_group").slick({
     autoplay: true, // 자동재생
     autoplaySpeed: 3000, // 간격시간
     dots: true, // 동그라미버튼
@@ -13,65 +13,102 @@ $(".slide_group").slick({
     fade: false, // 슬라이드가 수평으로 이동하지 않고, 제자리에서 사라지고 나타남(생략가능)
     arrows: true, // 좌우화살표 사용여부(생략가능)
     prevArrow: '<button class="prev"><i class="fas fa-angle-left"></i></button>',
-    nextArrow: '<button class="next"><i class="fas fa-angle-right"></i></button>',        
+    nextArrow: '<button class="next"><i class="fas fa-angle-right"></i></button>',
+    responsive:[{
+        breakpoint:1024,
+        settings:{
+            arrows: false
+        }
+    }]
 })
 
 // $('.article1 .playstop').on('click', function(){
-//     var $slidebtn = $(this).find('i')
-//     if ($slidebtn.hasClass('fa-pause')){
-//         $('.slide_group').slick('slickPause')
-//         $slidebtn.removeClass('fa-pause').addClass('fa-play')
+//     var $ibutton = $(this).find('i')
+//     if ( $ibutton.hasClass('fa-pause') ) {
+//         $('.article1 .slide_group').slick('slickPause')
+//         $ibutton.removeClass('fa-pause').addClass('fa-play')
 //     } else {
-//         $('.slide_group').slick('slickPlay')
-//         $slidebtn.removeClass('fa-play').addClass('fa-pause')
+//         $('.article1 .slide_group').slick('slickPlay')
+//         $ibutton.removeClass('fa-play').addClass('fa-pause')
 //     }
 // })
 
 var elPlaystop = document.querySelector('.article1 .playstop')
 var ibtn = elPlaystop.childNodes
-// var elSlideGroup = document.querySelector('article1 .slide_group')
-    elPlaystop.addEventListener('click', function(){
-    if( ibtn[0].classList.contains('fa-pause')){
+elPlaystop.addEventListener('click', function(){
+    if ( ibtn[0].classList.contains('fa-pause') ) {
         $('.article1 .slide_group').slick('slickPause')
         ibtn[0].classList.remove('fa-pause')
         ibtn[0].classList.add('fa-play')
-    } else{
+    } else {
         $('.article1 .slide_group').slick('slickPlay')
         ibtn[0].classList.remove('fa-play')
         ibtn[0].classList.add('fa-pause')
     }
 })
 
+
+
 $('#header .open').on('click', function(){
     // $(this).toggleClass('on')
-    if( !$(this).hasClass('on')){
+    if ( !$(this).hasClass('on') ) {
         $(this).addClass('on')
-    } else{
+    } else {
         $(this).removeClass('on')
     }
+
     // $(this).next().toggleClass('on')
-    if( !$(this).next().hasClass('on')){
+    if ( !$(this).next().hasClass('on') ) {
         $(this).next().addClass('on')
-    } else{
+    } else {
         $(this).next().removeClass('on')
     }
+
 })
 
-var ww= $(window).width();
-console.log(ww)
-if(ww>1024) {
-    $('.nav .depth1 > li' ).hover(
-        function(){
-            $(this).addClass('on')
-        },
-        function(){
-            $(this).removeClass('on')
-        }
-    )
-}    else{
-    $('.nav .depth1 > li').on('click', function(){
-        $(this).toggleClass('on')
-        $(this).siblings().removeClass('on')
 
-    })
+var ww = window.innerWidth
+// var ww = $(window).width()
+console.log(ww)
+
+var elDept1Li = document.querySelectorAll('.nav .depth1 > li')
+// console.log(elDept1Li.length)
+if ( ww>1024 ) {
+    // $('.nav .depth1 > li').hover(
+    //     function(){ 
+    //         $(this).addClass('on')
+    //     },
+    //     function(){
+    //         $(this).removeClass('on')
+    //     }
+    // )
+    for (var i=0; i<elDept1Li.length; i++) {
+        elDept1Li[i].addEventListener('mouseover', function(){
+            this.classList.add('on')
+        })
+        elDept1Li[i].addEventListener('mouseout', function(){
+            this.classList.remove('on')
+        })
+    }
+} else {
+    // $('.nav .depth1 > li').on('click', function(){
+    //     $(this).toggleClass('on')
+    //     $(this).siblings().removeClass('on')
+    // })
+    for (var i=0; i<elDept1Li.length; i++) { 
+        elDept1Li[i].addEventListener('click', function(){
+            // var k = i;
+            // for (var j=0; j<5; j++) {
+            //     if (k!==j) {
+            //       elDept1Li[j].classList.remove('on')
+            //     }
+            // }
+            if ( !this.classList.contains('on') ) {
+                this.classList.add('on')
+            } else {
+                this.classList.remove('on')
+            }
+            return false
+        })
+    }
 }
